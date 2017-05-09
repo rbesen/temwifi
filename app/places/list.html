@@ -1,0 +1,128 @@
+<div ng-controller='placesCtrl' ng-init='init()'>
+	<div class='linkCreate' ng-click='setAddingNew(true)' ng-if='!addingNew'>Cadastrar novo Estabelecimento</div>
+
+	<div class='place' ng-if='addingNew'>
+		<form novalidate>
+			<label>Nome: <input type="text" ng-model="newPlace.name" /></label><br /><br />
+    		<label>Endereço: <input type="text" ng-model="newPlace.address" /></label><br /><br />
+    		Avaliação: 
+    		<label><input type="radio" ng-model="newPlace.rating" value="1" />1</label>
+    		<label><input type="radio" ng-model="newPlace.rating" value="2" />2</label>
+    		<label><input type="radio" ng-model="newPlace.rating" value="3" />3</label>
+    		<label><input type="radio" ng-model="newPlace.rating" value="4" />4</label>
+    		<label><input type="radio" ng-model="newPlace.rating" value="5" />5</label><br /><br />
+    		Internet:
+    		<div class="internet">
+    			Velocidade: 
+    			<label><input type="radio" ng-model="newPlace.internet.speed" value="1" />1</label>
+    			<label><input type="radio" ng-model="newPlace.internet.speed" value="2" />2</label>
+    			<label><input type="radio" ng-model="newPlace.internet.speed" value="3" />3</label>
+    			<label><input type="radio" ng-model="newPlace.internet.speed" value="4" />4</label>
+	   		 	<label><input type="radio" ng-model="newPlace.internet.speed" value="5" />5</label>
+   			 	<label><input type="radio" ng-model="newPlace.internet.speed" value="6" />6</label>
+    			<label><input type="radio" ng-model="newPlace.internet.speed" value="7" />7</label>
+    			<label><input type="radio" ng-model="newPlace.internet.speed" value="8" />8</label>
+ 		   		<label><input type="radio" ng-model="newPlace.internet.speed" value="9" />9</label>
+   			 	<label><input type="radio" ng-model="newPlace.internet.speed" value="10" />10</label><br /><br />
+   		 		<label>Rede: <input type="text" ng-model="newPlace.internet.name" /></label><br /><br />
+   		 		<label>Senha: <input type="text" ng-model="newPlace.internet.password" />*deixe em branco para redes abertas</label><br /><br />
+    		</div>
+    		<label>Comida: <input type="text" ng-model="newPlace.food" />*Adicione os itens separador por vírgula</label><br /><br />
+			<label>Bebida: <input type="text" ng-model="newPlace.drinks" />*Adicione os itens separador por vírgula</label><br /><br />
+			Serviço: 
+    		<label><input type="radio" ng-model="newPlace.service" value="1" />1</label>
+   	 		<label><input type="radio" ng-model="newPlace.service" value="2" />2</label>
+  	  		<label><input type="radio" ng-model="newPlace.service" value="3" />3</label>
+    		<label><input type="radio" ng-model="newPlace.service" value="4" />4</label>
+    		<label><input type="radio" ng-model="newPlace.service" value="5" />5</label><br /><br />
+			Preço: 
+    		<label><input type="radio" ng-model="newPlace.price" value="1" />1</label>
+   	 		<label><input type="radio" ng-model="newPlace.price" value="2" />2</label>
+  	  		<label><input type="radio" ng-model="newPlace.price" value="3" />3</label>
+    		<label><input type="radio" ng-model="newPlace.price" value="4" />4</label>
+    		<label><input type="radio" ng-model="newPlace.price" value="5" />5</label><br /><br />
+			Barulho: 
+    		<label><input type="radio" ng-model="newPlace.noise" value="1" />1</label>
+   	 		<label><input type="radio" ng-model="newPlace.noise" value="2" />2</label>
+  	  		<label><input type="radio" ng-model="newPlace.noise" value="3" />3</label>
+    		<label><input type="radio" ng-model="newPlace.noise" value="4" />4</label>
+    		<label><input type="radio" ng-model="newPlace.noise" value="5" />5</label><br /><br />
+			Conforto: 
+   			<label><input type="radio" ng-model="newPlace.confort" value="1" />1</label>
+   		 	<label><input type="radio" ng-model="newPlace.confort" value="2" />2</label>
+  		  	<label><input type="radio" ng-model="newPlace.confort" value="3" />3</label>
+    		<label><input type="radio" ng-model="newPlace.confort" value="4" />4</label>
+   			<label><input type="radio" ng-model="newPlace.confort" value="5" />5</label><br /><br />
+
+   			<div ng-click='setAddingNew(false)'>Cancelar</div>
+    		<input type="submit" ng-click="save(newPlace)" value="Salvar" />	
+	</form>
+
+</div>
+
+
+
+	<div ng-repeat='place in places' class="place" ng-click='setDetail(place.id)'>
+		<p>Estabelecimento: <b>{{place.name}}</b></p>
+		<p>Endereço: {{place.address}}</p>
+		<p>Avaliação: 
+			<i class="fa fa-star-o" ng-show='place.rating < 1'></i><i class="fa fa-star" ng-show='place.rating >= 1'></i>
+			<i class="fa fa-star-o" ng-show='place.rating < 2'></i><i class="fa fa-star" ng-show='place.rating >= 2'></i>
+			<i class="fa fa-star-o" ng-show='place.rating < 3'></i><i class="fa fa-star" ng-show='place.rating >= 3'></i>
+			<i class="fa fa-star-o" ng-show='place.rating < 4'></i><i class="fa fa-star" ng-show='place.rating >= 4'></i>
+			<i class="fa fa-star-o" ng-show='place.rating < 5'></i><i class="fa fa-star" ng-show='place.rating >= 5'></i>
+		</p>
+		<div ng-if='place.internet' class="internet">
+			<div><b>Internet</b></div>
+			<div>Velocidade: 
+				<i class="fa fa-star-o" ng-show='place.internet.speed < 1'></i><i class="fa fa-star" ng-show='place.internet.speed >= 1'></i>
+				<i class="fa fa-star-o" ng-show='place.internet.speed < 2'></i><i class="fa fa-star" ng-show='place.internet.speed >= 2'></i>
+				<i class="fa fa-star-o" ng-show='place.internet.speed < 3'></i><i class="fa fa-star" ng-show='place.internet.speed >= 3'></i>
+				<i class="fa fa-star-o" ng-show='place.internet.speed < 4'></i><i class="fa fa-star" ng-show='place.internet.speed >= 4'></i>
+				<i class="fa fa-star-o" ng-show='place.internet.speed < 5'></i><i class="fa fa-star" ng-show='place.internet.speed >= 5'></i>
+				<i class="fa fa-star-o" ng-show='place.internet.speed < 6'></i><i class="fa fa-star" ng-show='place.internet.speed >= 6'></i>
+				<i class="fa fa-star-o" ng-show='place.internet.speed < 7'></i><i class="fa fa-star" ng-show='place.internet.speed >= 7'></i>
+				<i class="fa fa-star-o" ng-show='place.internet.speed < 8'></i><i class="fa fa-star" ng-show='place.internet.speed >= 8'></i>
+				<i class="fa fa-star-o" ng-show='place.internet.speed < 9'></i><i class="fa fa-star" ng-show='place.internet.speed >= 9'></i>
+				<i class="fa fa-star-o" ng-show='place.internet.speed < 10'></i><i class="fa fa-star" ng-show='place.internet.speed >= 10'></i>
+			</div>
+			<span>Rede: {{place.internet.name}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+			<span ng-if="place.internet.password">Senha: {{place.internet.password}}</span>
+			<span ng-if="!place.internet.password">Rede Aberta</span>
+		</div>
+		<div ng-if='showDetail == place.id'>
+			<p>Comida: <span ng-repeat='f in place.food'>{{!$first?',':''}}{{f}}</span></p>
+			<p>Bebida: <span ng-repeat='d in place.drinks'>{{!$first?',':''}}{{d}}</span></p>
+			<p>Serviço:
+				<i class="fa fa-star-o" ng-show='place.service < 1'></i><i class="fa fa-star" ng-show='place.service >= 1'></i>
+				<i class="fa fa-star-o" ng-show='place.service < 2'></i><i class="fa fa-star" ng-show='place.service >= 2'></i>
+				<i class="fa fa-star-o" ng-show='place.service < 3'></i><i class="fa fa-star" ng-show='place.service >= 3'></i>
+				<i class="fa fa-star-o" ng-show='place.service < 4'></i><i class="fa fa-star" ng-show='place.service >= 4'></i>
+				<i class="fa fa-star-o" ng-show='place.service < 5'></i><i class="fa fa-star" ng-show='place.service >= 5'></i>
+			</p>
+			<p>Preço:
+				<i class="fa fa-star-o" ng-show='place.price < 1'></i><i class="fa fa-star" ng-show='place.price >= 1'></i>
+				<i class="fa fa-star-o" ng-show='place.price < 2'></i><i class="fa fa-star" ng-show='place.price >= 2'></i>
+				<i class="fa fa-star-o" ng-show='place.price < 3'></i><i class="fa fa-star" ng-show='place.price >= 3'></i>
+				<i class="fa fa-star-o" ng-show='place.price < 4'></i><i class="fa fa-star" ng-show='place.price >= 4'></i>
+				<i class="fa fa-star-o" ng-show='place.price < 5'></i><i class="fa fa-star" ng-show='place.price >= 5'></i>
+			</p>
+
+			<p>Barulho:
+				<i class="fa fa-star-o" ng-show='place.noise < 1'></i><i class="fa fa-star" ng-show='place.noise >= 1'></i>
+				<i class="fa fa-star-o" ng-show='place.noise < 2'></i><i class="fa fa-star" ng-show='place.noise >= 2'></i>
+				<i class="fa fa-star-o" ng-show='place.noise < 3'></i><i class="fa fa-star" ng-show='place.noise >= 3'></i>
+				<i class="fa fa-star-o" ng-show='place.noise < 4'></i><i class="fa fa-star" ng-show='place.noise >= 4'></i>
+				<i class="fa fa-star-o" ng-show='place.noise < 5'></i><i class="fa fa-star" ng-show='place.noise >= 5'></i>
+			</p>
+			<p>Conforto:
+				<i class="fa fa-star-o" ng-show='place.confort < 1'></i><i class="fa fa-star" ng-show='place.confort >= 1'></i>
+				<i class="fa fa-star-o" ng-show='place.confort < 2'></i><i class="fa fa-star" ng-show='place.confort >= 2'></i>
+				<i class="fa fa-star-o" ng-show='place.confort < 3'></i><i class="fa fa-star" ng-show='place.confort >= 3'></i>
+				<i class="fa fa-star-o" ng-show='place.confort < 4'></i><i class="fa fa-star" ng-show='place.confort >= 4'></i>
+				<i class="fa fa-star-o" ng-show='place.confort < 5'></i><i class="fa fa-star" ng-show='place.confort >= 5'></i>
+			</p>
+		</div>
+	</div>
+</div>
+

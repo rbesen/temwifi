@@ -1,0 +1,50 @@
+/* app css stylesheet */
+
+.menu {
+  list-style: none;
+  border-bottom: 0.1em solid black;
+  margin-bottom: 2em;
+  padding: 0 0 0.5em;
+}
+
+.menu:before {
+  content: "[";
+}
+
+.menu:after {
+  content: "]";
+}
+
+.menu > li {
+  display: inline;
+}
+
+.menu > li + li:before {
+  content: "|";
+  padding-right: 0.3em;
+}
+
+.place{
+  padding: 5px;
+  margin: 0px 10px 3px 10px;
+  border: 1px solid;
+  border-radius: 5px;
+  background-color: darkred;
+  color: lightgray;
+  cursor: pointer;
+}
+
+.internet{
+  margin-left: 20px;
+}
+
+.fa{
+  color: yellow;
+}
+
+.linkCreate{
+	text-align: -webkit-right;
+    margin-right: 10px;
+	margin-bottom: 15px;
+	cursor: pointer;
+}
